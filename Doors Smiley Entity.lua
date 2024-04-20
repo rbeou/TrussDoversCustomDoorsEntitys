@@ -126,7 +126,7 @@ entity:Run()
 -- entity:IsPaused()
 -- entity:Despawn()
 
-task.wait(1) -- change time to the seconds or minute you want to
+task.wait(15) -- change time to the seconds or minute you want to
 local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
 achievementGiver({
