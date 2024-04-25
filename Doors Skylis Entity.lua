@@ -125,3 +125,39 @@ entity:Run()
 -- entity:Resume()
 -- entity:IsPaused()
 -- entity:Despawn()
+
+
+local fireShooter = script.Parent -- Assuming the script is directly under the model that will shoot the fire
+local Players = game:GetService("Players")
+local Debris = game:GetService("Debris")
+
+local function shootFire()
+    while true do
+        task.wait(math.random(1, 3)) -- Wait for a random time between 1 to 3 seconds
+
+        local firePart = Instance.new("Part")
+        firePart.Size = Vector3.new(10, 10, 10)
+        firePart.Shape = Enum.PartType.Ball
+        firePart.Transparency = 1
+        firePart.Position = fireShooter.Position + Vector3.new(math.random(-50, 50), math.random(20, 50), math.random(-50, 50))
+        firePart.Parent = workspace
+
+        local fire = Instance.new("Fire", firePart)
+        fire.Size = 10
+
+        local sound = Instance.new("Sound", firePart)
+		sound.SoundId = "rbxassetid://9063468624" -- Replace with your sound ID
+        sound:Play()
+
+        Debris:AddItem(firePart, 5) -- Remove the fire part after 5 seconds
+
+        firePart.Touched:Connect(function(hit)
+            local player = Players:GetPlayerFromCharacter(hit.Parent)
+            if player then
+                player.Character:BreakJoints() -- Kills the player on touch
+            end
+        end)
+    end
+end
+
+shootFire()
